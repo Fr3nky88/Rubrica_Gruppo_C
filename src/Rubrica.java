@@ -61,6 +61,11 @@ public class Rubrica {
                     break;
 
                 case 3:
+                    int i = 1;
+                    for (Contatto contatto1 : rubrica) {
+                        System.out.println("Contatto: " + i + "-" + contatto1);
+                        i++;
+                    }
                     break;
                 case 4:
                     break;
