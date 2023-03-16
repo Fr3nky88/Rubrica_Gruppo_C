@@ -53,7 +53,8 @@ public class Rubrica {
                     System.out.println("Arrivederci!");
                     break;
                 default:
-                    System.out.println("Errore input non valido!");
+                    System.out.println("Errore input non valido!\n Inserisci un input valido");
+                    input.nextInt();
             }
         }
 
