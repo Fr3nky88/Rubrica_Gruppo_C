@@ -58,6 +58,34 @@ public class Rubrica {
                     System.out.println("\n Contatto aggiunto con successo!");
                     break;
                 case 2:
+                    //Ricerca del contatto
+                    System.out.println("Vuoi cercare per: nome, cognome o numero?");
+                    String parametro = input.next();
+                    if ("nome".contains(parametro.toLowerCase())){
+                        System.out.println("Digitare il nome del contatto:");
+                        parametro = input.next();
+                        for (Contatto i : rubrica) {
+                            if (parametro.toLowerCase().equals(i.getNome().toLowerCase())) {
+                                System.out.println(i);
+                            }
+                        }
+                    } else if ("cognome".contains(parametro.toLowerCase())){
+                        System.out.println("Digitare il cognome del contatto:");
+                        parametro = input.next();
+                        for (Contatto i : rubrica) {
+                            if (parametro.toLowerCase().equals(i.getCognome().toLowerCase())) {
+                                System.out.println(i);
+                            }
+                        }
+                    } else if ("numero".contains(parametro.toLowerCase())){
+                        System.out.println("Digitare il numero o parte numerodel contatto:");
+                        parametro = input.next();
+                        for (Contatto i : rubrica) {
+                            if (i.getTelefono().contains(parametro)) {
+                                System.out.println(i);
+                            }
+                        }
+                    }
                     break;
                 case 3:
                     int i = 1;
