@@ -41,9 +41,25 @@ public class Rubrica {
 
             switch (scelta) {
                 case 1:
+                    System.out.println("\n Aggiungi il tuo contatto!");
+                    System.out.println("\n Digita il nome!");
+                    String nome = input.next();
+
+                    System.out.println("\n Digita il cognome!");
+                    String cognome = input.next();
+
+                    System.out.println("\n Digita ora il numero!");
+                    String numero= input.next();
+
+                    Contatto contatto = new Contatto(nome, cognome, numero);
+
+                    rubrica.add(contatto);
+
+                    System.out.println("\n Contatto aggiunto con successo!");
                     break;
                 case 2:
                     break;
+
                 case 3:
                     break;
                 case 4:
@@ -62,7 +78,6 @@ public class Rubrica {
 
 /**
  * Contatto della rubrica
- *
  *
  */
 class Contatto {
