@@ -59,7 +59,6 @@ public class Rubrica {
                     break;
                 case 2:
                     break;
-
                 case 3:
                     int i = 1;
                     for (Contatto contatto1 : rubrica) {
