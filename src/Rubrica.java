@@ -88,13 +88,89 @@ public class Rubrica {
                     }
                     break;
                 case 3:
-                    int i = 1;
+                    int i2 = 1;
                     for (Contatto contatto1 : rubrica) {
-                        System.out.println("Contatto: " + i + "-" + contatto1);
-                        i++;
+                        System.out.println("Contatto: " + i2 + "-" + contatto1);
+                        i2++;
                     }
                     break;
                 case 4:
+                    System.out.println("Ricerca del contatto da eliminare...");
+                    System.out.println("Vuoi cercare per: nome, cognome o numero?");
+                    parametro = input.next();
+                    if ("nome".contains(parametro.toLowerCase())){
+                        System.out.println("Digitare il nome del contatto:");
+                        parametro = input.next();
+                        int indiceContatto;
+                        boolean sure = false;
+                        while (!sure) {
+                            System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
+                            for (Contatto i : rubrica) {
+                                if (parametro.toLowerCase().equals(i.getNome().toLowerCase())) {
+                                    System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
+                                    System.out.println(" ");
+                                }
+                            }
+                            indiceContatto = input.nextInt();
+                            System.out.println("Procedere all'eliminazione? Inserire: true/false");
+                            sure = input.nextBoolean();
+                            if (sure) {
+                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso consuccesso!");
+                                rubrica.remove(indiceContatto);
+                            } else {
+                                System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
+                                sure = input.nextBoolean();
+                            }
+                        }
+                    } else if ("cognome".contains(parametro.toLowerCase())){
+                        System.out.println("Digitare il cognome del contatto:");
+                        parametro = input.next();
+                        int indiceContatto;
+                        boolean sure = false;
+                        while (!sure) {
+                            System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
+                            for (Contatto i : rubrica) {
+                                if (parametro.toLowerCase().equals(i.getCognome().toLowerCase())) {
+                                    System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
+                                    System.out.println(" ");
+                                }
+                            }
+                            indiceContatto = input.nextInt();
+                            System.out.println("Procedere all'eliminazione? Inserire: true/false");
+                            sure = input.nextBoolean();
+                            if (sure) {
+                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso consuccesso!");
+                                rubrica.remove(indiceContatto);
+                            } else {
+                                System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
+                                sure = input.nextBoolean();
+                            }
+                        }
+                    } else if ("numero".contains(parametro.toLowerCase())){
+                        System.out.println("Digitare il numero o parte numerodel contatto:");
+                        parametro = input.next();
+                        int indiceContatto;
+                        boolean sure = false;
+                        while (!sure) {
+                            System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
+                            for (Contatto i : rubrica) {
+                                if (i.getTelefono().contains(parametro)) {
+                                    System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
+                                    System.out.println(" ");
+                                }
+                            }
+                            indiceContatto = input.nextInt();
+                            System.out.println("Procedere all'eliminazione? Inserire: true/false");
+                            sure = input.nextBoolean();
+                            if (sure) {
+                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso consuccesso!");
+                                rubrica.remove(indiceContatto);
+                            } else {
+                                System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
+                                sure = input.nextBoolean();
+                            }
+                        }
+                    }
                     break;
                 case 0:
                     running = false;
