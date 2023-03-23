@@ -11,23 +11,7 @@ public class Rubrica {
     public static void main(String[] args) {
         List<Contatto> rubrica = new ArrayList<>();
         Scanner input = new Scanner(System.in);
-
         boolean running = true;
-
-        System.out.println("" +
-                "         _      _                  _               _            _           _             _                    _              _      _                  _          _          _                 _      \n" +
-                "        /\\ \\   /\\_\\               / /\\            /\\ \\         /\\ \\       /\\ \\           / /\\                 /\\ \\           /\\ \\   /\\_\\               /\\ \\       /\\ \\       /\\ \\             /\\ \\     \n" +
-                "       /  \\ \\ / / /         _    / /  \\          /  \\ \\        \\ \\ \\     /  \\ \\         / /  \\               /  \\ \\         /  \\ \\ / / /         _    /  \\ \\     /  \\ \\     /  \\ \\           /  \\ \\    \n" +
-                "      / /\\ \\ \\\\ \\ \\__      /\\_\\ / / /\\ \\        / /\\ \\ \\       /\\ \\_\\   / /\\ \\ \\       / / /\\ \\             / /\\ \\_\\       / /\\ \\ \\\\ \\ \\__      /\\_\\ / /\\ \\ \\   / /\\ \\ \\   / /\\ \\ \\         / /\\ \\ \\   \n" +
-                "     / / /\\ \\_\\\\ \\___\\    / / // / /\\ \\ \\      / / /\\ \\_\\     / /\\/_/  / / /\\ \\ \\     / / /\\ \\ \\           / / /\\/_/      / / /\\ \\_\\\\ \\___\\    / / // / /\\ \\_\\ / / /\\ \\_\\ / / /\\ \\ \\       / / /\\ \\ \\  \n" +
-                "    / / /_/ / / \\__  /   / / // / /\\ \\_\\ \\    / / /_/ / /    / / /    / / /  \\ \\_\\   / / /  \\ \\ \\         / / / ______   / / /_/ / / \\__  /   / / // / /_/ / // / /_/ / // / /  \\ \\_\\     / / /  \\ \\_\\ \n" +
-                "   / / /__\\/ /  / / /   / / // / /\\ \\ \\___\\  / / /__\\/ /    / / /    / / /    \\/_/  / / /___/ /\\ \\       / / / /\\_____\\ / / /__\\/ /  / / /   / / // / /__\\/ // / /__\\/ // / /   / / /    / / /    \\/_/ \n" +
-                "  / / /_____/  / / /   / / // / /  \\ \\ \\__/ / / /_____/    / / /    / / /          / / /_____/ /\\ \\     / / /  \\/____ // / /_____/  / / /   / / // / /_____// / /_____// / /   / / /    / / /          \n" +
-                " / / /\\ \\ \\   / / /___/ / // / /____\\_\\ \\  / / /\\ \\ \\  ___/ / /__  / / /________  / /_________/\\ \\ \\   / / /_____/ / // / /\\ \\ \\   / / /___/ / // / /      / / /      / / /___/ / /    / / /________   \n" +
-                "/ / /  \\ \\ \\ / / /____\\/ // / /__________\\/ / /  \\ \\ \\/\\__\\/_/___\\/ / /_________\\/ / /_       __\\ \\_\\ / / /______\\/ // / /  \\ \\ \\ / / /____\\/ // / /      / / /      / / /____\\/ /    / / /_________\\  \n" +
-                "\\/_/    \\_\\/ \\/_________/ \\/_____________/\\/_/    \\_\\/\\/_________/\\/____________/\\_\\___\\     /____/_/ \\/___________/ \\/_/    \\_\\/ \\/_________/ \\/_/       \\/_/       \\/_________/     \\/____________/  \n" +
-                "                                                                                                                                                                                                      "
-        );
 
         while (running) {
             System.out.println("Seleziona un'operazione:");
@@ -65,7 +49,7 @@ public class Rubrica {
                         System.out.println("Digitare il nome del contatto:");
                         parametro = input.next();
                         for (Contatto i : rubrica) {
-                            if (parametro.toLowerCase().equals(i.getNome().toLowerCase())) {
+                            if (parametro.equalsIgnoreCase(i.getNome().toLowerCase())) {
                                 System.out.println(i);
                             }
                         }
@@ -73,12 +57,12 @@ public class Rubrica {
                         System.out.println("Digitare il cognome del contatto:");
                         parametro = input.next();
                         for (Contatto i : rubrica) {
-                            if (parametro.toLowerCase().equals(i.getCognome().toLowerCase())) {
+                            if (parametro.equalsIgnoreCase(i.getCognome().toLowerCase())) {
                                 System.out.println(i);
                             }
                         }
                     } else if ("numero".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il numero o parte numerodel contatto:");
+                        System.out.println("Digitare il numero o parte numero del contatto:");
                         parametro = input.next();
                         for (Contatto i : rubrica) {
                             if (i.getTelefono().contains(parametro)) {
@@ -106,7 +90,7 @@ public class Rubrica {
                         while (!sure) {
                             System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
                             for (Contatto i : rubrica) {
-                                if (parametro.toLowerCase().equals(i.getNome().toLowerCase())) {
+                                if (parametro.equalsIgnoreCase(i.getNome().toLowerCase())) {
                                     System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
                                     System.out.println(" ");
                                 }
@@ -115,7 +99,7 @@ public class Rubrica {
                             System.out.println("Procedere all'eliminazione? Inserire: true/false");
                             sure = input.nextBoolean();
                             if (sure) {
-                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso consuccesso!");
+                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
                                 rubrica.remove(indiceContatto);
                             } else {
                                 System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
@@ -130,7 +114,7 @@ public class Rubrica {
                         while (!sure) {
                             System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
                             for (Contatto i : rubrica) {
-                                if (parametro.toLowerCase().equals(i.getCognome().toLowerCase())) {
+                                if (parametro.equalsIgnoreCase(i.getCognome().toLowerCase())) {
                                     System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
                                     System.out.println(" ");
                                 }
@@ -139,7 +123,7 @@ public class Rubrica {
                             System.out.println("Procedere all'eliminazione? Inserire: true/false");
                             sure = input.nextBoolean();
                             if (sure) {
-                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso consuccesso!");
+                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
                                 rubrica.remove(indiceContatto);
                             } else {
                                 System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
@@ -147,7 +131,7 @@ public class Rubrica {
                             }
                         }
                     } else if ("numero".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il numero o parte numerodel contatto:");
+                        System.out.println("Digitare il numero o parte numero del contatto:");
                         parametro = input.next();
                         int indiceContatto;
                         boolean sure = false;
@@ -163,7 +147,7 @@ public class Rubrica {
                             System.out.println("Procedere all'eliminazione? Inserire: true/false");
                             sure = input.nextBoolean();
                             if (sure) {
-                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso consuccesso!");
+                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
                                 rubrica.remove(indiceContatto);
                             } else {
                                 System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
@@ -182,46 +166,4 @@ public class Rubrica {
             }
         }
 
-    }
-}
-
-/**
- * Contatto della rubrica
- *
- */
-class Contatto {
-    private String nome;
-    private String cognome;
-    private String telefono;
-
-    public Contatto(String nome, String cognome, String telefono) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.telefono = telefono;
-    }
-
-    /**
-     * Metodo che restituisce il nome memorizzato all'interno del contatto
-     * @return String nome
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String toString() {
-        return nome + " " + cognome + ": " + telefono;
-    }
-
-}
+    }}
