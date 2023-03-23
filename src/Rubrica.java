@@ -1,169 +1,179 @@
+import Classi.Contatto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-/**
- *
- *  Scrivi un programma Java che simuli una rubrica. L'utente deve essere in grado di aggiungere, cercare, visualizzare e cancellare contatti dalla rubrica.
- *
- */
-public class Rubrica {
 
+public class Rubrica {
+    static Scanner input = new Scanner(System.in);
+    static List<Contatto> rubrica = new ArrayList<>();
     public static void main(String[] args) {
-        List<Contatto> rubrica = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
-            System.out.println("Seleziona un'operazione:");
-            System.out.println("1. Aggiungi contatto");
-            System.out.println("2. Cerca contatto");
-            System.out.println("3. Visualizza tutti i contatti");
-            System.out.println("4. Cancella contatto");
-            System.out.println("0. Esci");
 
+            visualizzaMenu();
             int scelta = input.nextInt();
 
             switch (scelta) {
-                case 1:
-                    System.out.println("\n Aggiungi il tuo contatto!");
-                    System.out.println("\n Digita il nome!");
-                    String nome = input.next();
-
-                    System.out.println("\n Digita il cognome!");
-                    String cognome = input.next();
-
-                    System.out.println("\n Digita ora il numero!");
-                    String numero= input.next();
-
-                    Contatto contatto = new Contatto(nome, cognome, numero);
-
-                    rubrica.add(contatto);
-
-                    System.out.println("\n Contatto aggiunto con successo!");
-                    break;
-                case 2:
-                    //Ricerca del contatto
-                    System.out.println("Vuoi cercare per: nome, cognome o numero?");
-                    String parametro = input.next();
-                    if ("nome".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il nome del contatto:");
-                        parametro = input.next();
-                        for (Contatto i : rubrica) {
-                            if (parametro.equalsIgnoreCase(i.getNome().toLowerCase())) {
-                                System.out.println(i);
-                            }
-                        }
-                    } else if ("cognome".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il cognome del contatto:");
-                        parametro = input.next();
-                        for (Contatto i : rubrica) {
-                            if (parametro.equalsIgnoreCase(i.getCognome().toLowerCase())) {
-                                System.out.println(i);
-                            }
-                        }
-                    } else if ("numero".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il numero o parte numero del contatto:");
-                        parametro = input.next();
-                        for (Contatto i : rubrica) {
-                            if (i.getTelefono().contains(parametro)) {
-                                System.out.println(i);
-                            }
-                        }
-                    }
-                    break;
-                case 3:
-                    int i2 = 1;
-                    for (Contatto contatto1 : rubrica) {
-                        System.out.println("Contatto: " + i2 + "-" + contatto1);
-                        i2++;
-                    }
-                    break;
-                case 4:
-                    System.out.println("Ricerca del contatto da eliminare...");
-                    System.out.println("Vuoi cercare per: nome, cognome o numero?");
-                    parametro = input.next();
-                    if ("nome".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il nome del contatto:");
-                        parametro = input.next();
-                        int indiceContatto;
-                        boolean sure = false;
-                        while (!sure) {
-                            System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
-                            for (Contatto i : rubrica) {
-                                if (parametro.equalsIgnoreCase(i.getNome().toLowerCase())) {
-                                    System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
-                                    System.out.println(" ");
-                                }
-                            }
-                            indiceContatto = input.nextInt();
-                            System.out.println("Procedere all'eliminazione? Inserire: true/false");
-                            sure = input.nextBoolean();
-                            if (sure) {
-                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
-                                rubrica.remove(indiceContatto);
-                            } else {
-                                System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
-                                sure = input.nextBoolean();
-                            }
-                        }
-                    } else if ("cognome".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il cognome del contatto:");
-                        parametro = input.next();
-                        int indiceContatto;
-                        boolean sure = false;
-                        while (!sure) {
-                            System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
-                            for (Contatto i : rubrica) {
-                                if (parametro.equalsIgnoreCase(i.getCognome().toLowerCase())) {
-                                    System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
-                                    System.out.println(" ");
-                                }
-                            }
-                            indiceContatto = input.nextInt();
-                            System.out.println("Procedere all'eliminazione? Inserire: true/false");
-                            sure = input.nextBoolean();
-                            if (sure) {
-                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
-                                rubrica.remove(indiceContatto);
-                            } else {
-                                System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
-                                sure = input.nextBoolean();
-                            }
-                        }
-                    } else if ("numero".contains(parametro.toLowerCase())){
-                        System.out.println("Digitare il numero o parte numero del contatto:");
-                        parametro = input.next();
-                        int indiceContatto;
-                        boolean sure = false;
-                        while (!sure) {
-                            System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
-                            for (Contatto i : rubrica) {
-                                if (i.getTelefono().contains(parametro)) {
-                                    System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
-                                    System.out.println(" ");
-                                }
-                            }
-                            indiceContatto = input.nextInt();
-                            System.out.println("Procedere all'eliminazione? Inserire: true/false");
-                            sure = input.nextBoolean();
-                            if (sure) {
-                                System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
-                                rubrica.remove(indiceContatto);
-                            } else {
-                                System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
-                                sure = input.nextBoolean();
-                            }
-                        }
-                    }
-                    break;
-                case 0:
-                    running = false;
-                    System.out.println("Arrivederci!");
-                    break;
-                default:
+                case 1 -> aggiungiContatto();
+                case 2 -> cercaContatto();
+                case 3 -> visualizzaContatti();
+                case 4 -> cancellaContatto();
+                case 0 -> running = spegnimento();
+                default -> {
                     System.out.println("Errore input non valido!\n Inserisci un input valido");
                     input.nextInt();
+                }
             }
         }
 
-    }}
+    }
+
+    private static void visualizzaMenu() {
+        System.out.println("Seleziona un'operazione:");
+        System.out.println("1. Aggiungi contatto");
+        System.out.println("2. Cerca contatto");
+        System.out.println("3. Visualizza tutti i contatti");
+        System.out.println("4. Cancella contatto");
+        System.out.println("0. Esci");
+    }
+
+    private static void aggiungiContatto() {
+        System.out.println("\n Aggiungi il tuo contatto!");
+        System.out.println("\n Digita il nome!");
+        String nome = input.next();
+
+        System.out.println("\n Digita il cognome!");
+        String cognome = input.next();
+
+        System.out.println("\n Digita ora il numero!");
+        String numero= input.next();
+
+        Contatto contatto = new Contatto(nome, cognome, numero);
+
+        rubrica.add(contatto);
+
+        System.out.println("Contatto aggiunto con successo!");
+    }
+
+    private static void cercaContatto() {
+        System.out.println("Vuoi cercare per: nome, cognome o numero?");
+        String parametro = input.next();
+        if ("nome".contains(parametro.toLowerCase())){
+            System.out.println("Digitare il nome del contatto:");
+            parametro = input.next();
+            for (Contatto i : rubrica) {
+                if (parametro.equalsIgnoreCase(i.getNome().toLowerCase())) {
+                    System.out.println(i);
+                }
+            }
+        } else if ("cognome".contains(parametro.toLowerCase())){
+            System.out.println("Digitare il cognome del contatto:");
+            parametro = input.next();
+            for (Contatto i : rubrica) {
+                if (parametro.equalsIgnoreCase(i.getCognome().toLowerCase())) {
+                    System.out.println(i);
+                }
+            }
+        } else if ("numero".contains(parametro.toLowerCase())){
+            System.out.println("Digitare il numero o parte numero del contatto:");
+            parametro = input.next();
+            for (Contatto i : rubrica) {
+                if (i.getTelefono().contains(parametro)) {
+                    System.out.println(i);
+                }
+            }
+        }
+    }
+
+    private static void visualizzaContatti() {
+        for (Contatto contatto : rubrica) {
+            System.out.println(contatto);
+        }
+    }
+
+    private static void cancellaContatto() {
+        System.out.println("Ricerca del contatto da eliminare...");
+        System.out.println("Vuoi cercare per: nome, cognome o numero?");
+        String parametro = input.next();
+        if ("nome".contains(parametro.toLowerCase())){
+            System.out.println("Digitare il nome del contatto:");
+            parametro = input.next();
+            int indiceContatto;
+            boolean sure = false;
+            while (!sure) {
+                System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
+                for (Contatto i : rubrica) {
+                    if (parametro.equalsIgnoreCase(i.getNome().toLowerCase())) {
+                        System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
+                        System.out.println(" ");
+                    }
+                }
+                indiceContatto = input.nextInt();
+                System.out.println("Procedere all'eliminazione? Inserire: true/false");
+                sure = input.nextBoolean();
+                if (sure) {
+                    System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
+                    rubrica.remove(indiceContatto);
+                } else {
+                    System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
+                    sure = input.nextBoolean();
+                }
+            }
+        } else if ("cognome".contains(parametro.toLowerCase())){
+            System.out.println("Digitare il cognome del contatto:");
+            parametro = input.next();
+            int indiceContatto;
+            boolean sure = false;
+            while (!sure) {
+                System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
+                for (Contatto i : rubrica) {
+                    if (parametro.equalsIgnoreCase(i.getCognome().toLowerCase())) {
+                        System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
+                        System.out.println(" ");
+                    }
+                }
+                indiceContatto = input.nextInt();
+                System.out.println("Procedere all'eliminazione? Inserire: true/false");
+                sure = input.nextBoolean();
+                if (sure) {
+                    System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
+                    rubrica.remove(indiceContatto);
+                } else {
+                    System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
+                    sure = input.nextBoolean();
+                }
+            }
+        } else if ("numero".contains(parametro.toLowerCase())){
+            System.out.println("Digitare il numero o parte numero del contatto:");
+            parametro = input.next();
+            int indiceContatto;
+            boolean sure = false;
+            while (!sure) {
+                System.out.println("Scegli il contatto da eliminare digitando il suo indice...");
+                for (Contatto i : rubrica) {
+                    if (i.getTelefono().contains(parametro)) {
+                        System.out.println(i + "\nCon indice: " + rubrica.indexOf(i));
+                        System.out.println(" ");
+                    }
+                }
+                indiceContatto = input.nextInt();
+                System.out.println("Procedere all'eliminazione? Inserire: true/false");
+                sure = input.nextBoolean();
+                if (sure) {
+                    System.out.println("Contatto: " + rubrica.get(indiceContatto) + " rimosso con successo!");
+                    rubrica.remove(indiceContatto);
+                } else {
+                    System.out.println("Vuoi annullare l'operazione elimina contatto? Inserire: true/false");
+                    sure = input.nextBoolean();
+                }
+            }
+        }
+    }
+
+    private static Boolean spegnimento() {
+        System.out.println("Arrivederci!");
+        return false;
+    }
+
+}

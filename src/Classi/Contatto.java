@@ -1,3 +1,5 @@
+package Classi;
+
 public class Contatto {
     private String nome;
     private String cognome;
