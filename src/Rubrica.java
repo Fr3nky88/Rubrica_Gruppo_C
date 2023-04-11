@@ -1,19 +1,32 @@
 import Classi.Contatto;
 import Classi.ContattoConIndirizzo;
 import Classi.Indirizzo;
-
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Rubrica {
-    static Scanner input = new Scanner(System.in);
-    static List<ContattoConIndirizzo> rubrica = new ArrayList<>();
-    static List<Contatto> rubricaContatti = new ArrayList<>();
-    static List<Indirizzo> rubricaIndirizzi = new ArrayList<>();
-    public static void main(String[] args) {
-        boolean running = true;
+    private Scanner input;
+    private List<ContattoConIndirizzo> rubrica;
+    private List<Contatto> rubricaContatti;
+    private List<Indirizzo> rubricaIndirizzi;
+    private static final Path FILE_PATH = Path.of(System.getProperty("user.home"), "Rubrica", "Rubrica.txt");
 
+
+    public Rubrica() throws IOException {
+        input = new Scanner(System.in);
+        rubrica = new ArrayList<>();
+        rubricaContatti = new ArrayList<>();
+        rubricaIndirizzi = new ArrayList<>();
+        creaFile();
+    }
+
+    public void start() {
+        boolean running = true;
         while (running) {
 
             visualizzaMenu();
@@ -36,10 +49,22 @@ public class Rubrica {
                 }
             }
         }
-
     }
-
-    private static void visualizzaMenu() {
+    private void creaFile() throws IOException {
+        String userHome = System.getProperty("user.home");
+        Path rubricaFolder = Path.of(userHome, "Rubrica");
+        try {
+            Files.createDirectory(rubricaFolder);
+        } catch (FileAlreadyExistsException e) {
+            System.out.println("Directory already exist");
+        }
+        try {
+            Files.createFile(FILE_PATH);
+        } catch (FileAlreadyExistsException e) {
+            System.out.println("File already exist");
+        }
+    }
+    private void visualizzaMenu() {
         System.out.println("Seleziona un'operazione:");
         System.out.println("1. Aggiungi contatto");
         System.out.println("2. Cerca contatto");
@@ -49,7 +74,7 @@ public class Rubrica {
         System.out.println("0. Esci");
     }
 
-    private static void aggiungiContatto() {
+    private void aggiungiContatto() {
         System.out.println("\n Aggiungi il tuo contatto!");
         System.out.println("\n Digita il nome!");
         String nome = input.next();
@@ -67,7 +92,7 @@ public class Rubrica {
         System.out.println("Contatto aggiunto con successo!");
     }
 
-    private static void cercaContatto() {
+    private void cercaContatto() {
         System.out.println("Vuoi cercare per: nome, cognome o numero?");
         String parametro = input.next();
         if ("nome".contains(parametro.toLowerCase())){
@@ -97,13 +122,13 @@ public class Rubrica {
         }
     }
 
-    private static void visualizzaContatti() {
+    private void visualizzaContatti() {
         for (Contatto contatto : rubricaContatti) {
             System.out.println(contatto);
         }
     }
 
-    private static void cancellaContatto() {
+    private void cancellaContatto() {
         System.out.println("Ricerca del contatto da eliminare...");
         System.out.println("Vuoi cercare per: nome, cognome o numero?");
         String parametro = input.next();
@@ -182,12 +207,12 @@ public class Rubrica {
         }
     }
 
-    private static Boolean spegnimento() {
+    private Boolean spegnimento() {
         System.out.println("Arrivederci!");
         return false;
     }
 
-    private static void aggiungiIndirizzo() {
+    private void aggiungiIndirizzo() {
         System.out.println("\n Aggiungi il tuo indirizzo!");
         System.out.println("\n Digita la via!");
         String via = input.next();
@@ -212,5 +237,8 @@ public class Rubrica {
         rubricaIndirizzi.add(indirizzo);
 
         System.out.println("Indirizzo aggiunto con successo!");
+    }
+    private void leggiRubricaDaFile() {
+
     }
 }
