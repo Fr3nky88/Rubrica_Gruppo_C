@@ -11,6 +11,7 @@ public class Main {
             System.exit(0);
         } catch (Exception e) {
             System.out.println("Errore generico, fai schifo :)");
+            e.printStackTrace();
             System.exit(0);
         }
     }

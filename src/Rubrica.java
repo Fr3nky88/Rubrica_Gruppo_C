@@ -1,28 +1,44 @@
 import Classi.Contatto;
 import Classi.ContattoConIndirizzo;
 import Classi.Indirizzo;
-import java.io.IOException;
+import Classi.SortedList;
+
+import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Rubrica {
     private Scanner input;
     private List<ContattoConIndirizzo> rubrica;
-    private List<Contatto> rubricaContatti;
+    private SortedList<Contatto> rubricaContatti;
     private List<Indirizzo> rubricaIndirizzi;
-    private static final Path FILE_PATH = Path.of(System.getProperty("user.home"), "Rubrica", "Rubrica.txt");
+    private static final Path FILE_PATH = Path.of(System.getProperty("user.home"), "Rubrica", "Rubrica.csv");
 
 
     public Rubrica() throws IOException {
         input = new Scanner(System.in);
         rubrica = new ArrayList<>();
-        rubricaContatti = new ArrayList<>();
         rubricaIndirizzi = new ArrayList<>();
         creaFile();
+        Comparator<Contatto> comparator = new Comparator<Contatto>() {
+            @Override
+            public int compare(Contatto o1, Contatto o2) {
+                if (o1.getCognome().equals(o2.getCognome())) {
+                    return 0;
+                }
+                if (o1.getCognome() == null) {
+                    return -1;
+                }
+                if (o2.getCognome() == null) {
+                    return 1;
+                }
+                return o1.getCognome().compareTo(o2.getCognome());
+            }
+        };
+        rubricaContatti = new SortedList<>(comparator);
+        leggiFile();
     }
 
     public void start() {
@@ -64,6 +80,26 @@ public class Rubrica {
             System.out.println("File already exist");
         }
     }
+    private void leggiFile() throws IOException {
+//        Contatto contatto = new Contatto();
+////        FileReader rubricaFile = new FileReader(FILE_PATH.toFile());
+//        StringBuilder stringa = new StringBuilder();
+//        int data = rubricaFile.read();
+//        while (data != -1) {
+//            if (!((char) data == ' ')) {
+//                stringa.append((char) data);
+//            }else {
+//
+//            }
+//            data = rubricaFile.read();
+//        }
+        List<String> listaRubrica = Files.readAllLines(FILE_PATH);
+        for(String linea : listaRubrica) {
+            String[] arrayLinea = linea.split(",");
+            Contatto contatto = new Contatto(arrayLinea[0], arrayLinea[1], arrayLinea[2]);
+            rubricaContatti.add(contatto);
+        }
+}
     private void visualizzaMenu() {
         System.out.println("Seleziona un'operazione:");
         System.out.println("1. Aggiungi contatto");
@@ -88,6 +124,16 @@ public class Rubrica {
         Contatto contatto = new Contatto(nome, cognome, numero);
 
         rubricaContatti.add(contatto);
+
+        try {
+        FileWriter rubricaFile = new FileWriter(FILE_PATH.toFile());
+            for (Contatto index : rubricaContatti) {
+                rubricaFile.append(index.getNome()).append(",").append(index.getCognome()).append(",").append(index.getTelefono()).append("\n");
+            }
+            rubricaFile.close();
+        } catch (IOException e) {
+            System.out.println("Errore");
+        }
 
         System.out.println("Contatto aggiunto con successo!");
     }

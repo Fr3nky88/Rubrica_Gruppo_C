@@ -11,6 +11,10 @@ public class Contatto {
         this.telefono = telefono;
     }
 
+    public Contatto() {
+
+    }
+
     /**
      * Metodo che restituisce il nome memorizzato all'interno del contatto
      * @return String nome
