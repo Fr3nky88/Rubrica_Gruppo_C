@@ -1,4 +1,4 @@
-package Classi;
+package it.develhope.gruppoc.Classi;
 
 public class Indirizzo {
     private String via = null;

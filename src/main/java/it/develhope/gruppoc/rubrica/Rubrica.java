@@ -1,7 +1,9 @@
-import Classi.Contatto;
-import Classi.ContattoConIndirizzo;
-import Classi.Indirizzo;
-import Classi.SortedList;
+package it.develhope.gruppoc.rubrica;
+
+import it.develhope.gruppoc.Classi.Contatto;
+import it.develhope.gruppoc.Classi.ContattoConIndirizzo;
+import it.develhope.gruppoc.Classi.Indirizzo;
+import it.develhope.gruppoc.Classi.SortedList;
 
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
@@ -9,19 +11,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class Rubrica {
+public abstract class Rubrica {
     private Scanner input;
-    private List<ContattoConIndirizzo> rubrica;
-    private SortedList<Contatto> rubricaContatti;
-    private List<Indirizzo> rubricaIndirizzi;
-    private static final Path FILE_PATH = Path.of(System.getProperty("user.home"), "Rubrica", "Rubrica.csv");
+    protected List<ContattoConIndirizzo> rubrica;
+    protected SortedList<Contatto> rubricaContatti;
+    protected List<Indirizzo> rubricaIndirizzi;
 
-
-    public Rubrica() throws IOException {
+    public Rubrica() throws Exception {
         input = new Scanner(System.in);
         rubrica = new ArrayList<>();
         rubricaIndirizzi = new ArrayList<>();
-        creaFile();
+
         Comparator<Contatto> comparator = new Comparator<Contatto>() {
             @Override
             public int compare(Contatto o1, Contatto o2) {
@@ -38,8 +38,12 @@ public class Rubrica {
             }
         };
         rubricaContatti = new SortedList<>(comparator);
-        leggiFile();
+        init();
     }
+
+    public abstract void salvaContatto();
+
+    protected abstract void init() throws Exception;
 
     public void start() {
         boolean running = true;
@@ -66,40 +70,7 @@ public class Rubrica {
             }
         }
     }
-    private void creaFile() throws IOException {
-        String userHome = System.getProperty("user.home");
-        Path rubricaFolder = Path.of(userHome, "Rubrica");
-        try {
-            Files.createDirectory(rubricaFolder);
-        } catch (FileAlreadyExistsException e) {
-            System.out.println("Directory already exist");
-        }
-        try {
-            Files.createFile(FILE_PATH);
-        } catch (FileAlreadyExistsException e) {
-            System.out.println("File already exist");
-        }
-    }
-    private void leggiFile() throws IOException {
-//        Contatto contatto = new Contatto();
-////        FileReader rubricaFile = new FileReader(FILE_PATH.toFile());
-//        StringBuilder stringa = new StringBuilder();
-//        int data = rubricaFile.read();
-//        while (data != -1) {
-//            if (!((char) data == ' ')) {
-//                stringa.append((char) data);
-//            }else {
-//
-//            }
-//            data = rubricaFile.read();
-//        }
-        List<String> listaRubrica = Files.readAllLines(FILE_PATH);
-        for(String linea : listaRubrica) {
-            String[] arrayLinea = linea.split(",");
-            Contatto contatto = new Contatto(arrayLinea[0], arrayLinea[1], arrayLinea[2]);
-            rubricaContatti.add(contatto);
-        }
-}
+
     private void visualizzaMenu() {
         System.out.println("Seleziona un'operazione:");
         System.out.println("1. Aggiungi contatto");
@@ -125,15 +96,7 @@ public class Rubrica {
 
         rubricaContatti.add(contatto);
 
-        try {
-        FileWriter rubricaFile = new FileWriter(FILE_PATH.toFile());
-            for (Contatto index : rubricaContatti) {
-                rubricaFile.append(index.getNome()).append(",").append(index.getCognome()).append(",").append(index.getTelefono()).append("\n");
-            }
-            rubricaFile.close();
-        } catch (IOException e) {
-            System.out.println("Errore");
-        }
+        salvaContatto();
 
         System.out.println("Contatto aggiunto con successo!");
     }
