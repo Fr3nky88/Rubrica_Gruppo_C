@@ -1,6 +1,7 @@
 package it.develhope.gruppoc;
 
 import it.develhope.gruppoc.rubrica.Rubrica;
+import it.develhope.gruppoc.rubrica.RubricaDatabase;
 import it.develhope.gruppoc.rubrica.RubricaFile;
 
 import java.io.IOException;
@@ -9,7 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Rubrica rubrica = new RubricaFile();
+//            Rubrica rubrica = new RubricaFile();
+            Rubrica rubrica = new RubricaDatabase();
             rubrica.start();
         } catch (IOException e) {
             System.out.println("Non e possibile memorizzare la rubrica su PC");

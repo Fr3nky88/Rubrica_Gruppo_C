@@ -1,6 +1,7 @@
 package it.develhope.gruppoc.rubrica;
 
 import it.develhope.gruppoc.Classi.Contatto;
+import it.develhope.gruppoc.Exeptions.ReadContactsExeption;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,25 +46,29 @@ public class RubricaFile extends Rubrica {
     }
 
     @Override
-    protected void init() throws IOException {
-        creaFile();
-        //        Contatto contatto = new Contatto();
-////        FileReader rubricaFile = new FileReader(FILE_PATH.toFile());
-//        StringBuilder stringa = new StringBuilder();
-//        int data = rubricaFile.read();
-//        while (data != -1) {
-//            if (!((char) data == ' ')) {
-//                stringa.append((char) data);
-//            }else {
-//
-//            }
-//            data = rubricaFile.read();
-//        }
-        List<String> listaRubrica = Files.readAllLines(FILE_PATH);
-        for(String linea : listaRubrica) {
-            String[] arrayLinea = linea.split(",");
-            Contatto contatto = new Contatto(arrayLinea[0], arrayLinea[1], arrayLinea[2]);
-            rubricaContatti.add(contatto);
+    protected void init() throws Exception {
+        try {
+            creaFile();
+            //        Contatto contatto = new Contatto();
+    ////        FileReader rubricaFile = new FileReader(FILE_PATH.toFile());
+    //        StringBuilder stringa = new StringBuilder();
+    //        int data = rubricaFile.read();
+    //        while (data != -1) {
+    //            if (!((char) data == ' ')) {
+    //                stringa.append((char) data);
+    //            }else {
+    //
+    //            }
+    //            data = rubricaFile.read();
+    //        }
+            List<String> listaRubrica = Files.readAllLines(FILE_PATH);
+            for(String linea : listaRubrica) {
+                String[] arrayLinea = linea.split(",");
+                Contatto contatto = new Contatto(arrayLinea[0], arrayLinea[1], arrayLinea[2]);
+                rubricaContatti.add(contatto);
+            }
+        } catch (Exception e) {
+            throw new ReadContactsExeption("FILE");
         }
     }
 }

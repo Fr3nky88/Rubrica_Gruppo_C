@@ -13,13 +13,13 @@ import java.util.*;
 
 public abstract class Rubrica {
     private Scanner input;
-    protected List<ContattoConIndirizzo> rubrica;
+    protected LinkedList<ContattoConIndirizzo> rubrica;
     protected SortedList<Contatto> rubricaContatti;
     protected List<Indirizzo> rubricaIndirizzi;
 
     public Rubrica() throws Exception {
         input = new Scanner(System.in);
-        rubrica = new ArrayList<>();
+        rubrica = new LinkedList<>();
         rubricaIndirizzi = new ArrayList<>();
 
         Comparator<Contatto> comparator = new Comparator<Contatto>() {
