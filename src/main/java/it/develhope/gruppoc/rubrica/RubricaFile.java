@@ -33,12 +33,10 @@ public class RubricaFile extends Rubrica {
     }
 
     @Override
-    public void salvaContatto() {
+    public void salvaContatto(Contatto c) {
         try {
             FileWriter rubricaFile = new FileWriter(FILE_PATH.toFile());
-            for (Contatto index : rubricaContatti) {
-                rubricaFile.append(index.getNome()).append(",").append(index.getCognome()).append(",").append(index.getTelefono()).append("\n");
-            }
+                rubricaFile.append(c.getNome()).append(",").append(c.getCognome()).append(",").append(c.getTelefono()).append("\n");
             rubricaFile.close();
         } catch (IOException e) {
             System.out.println("Errore");
@@ -64,7 +62,7 @@ public class RubricaFile extends Rubrica {
             List<String> listaRubrica = Files.readAllLines(FILE_PATH);
             for(String linea : listaRubrica) {
                 String[] arrayLinea = linea.split(",");
-                Contatto contatto = new Contatto(arrayLinea[0], arrayLinea[1], arrayLinea[2]);
+                Contatto contatto = new Contatto(arrayLinea[0], arrayLinea[1], arrayLinea[2], null);
                 rubricaContatti.add(contatto);
             }
         } catch (Exception e) {

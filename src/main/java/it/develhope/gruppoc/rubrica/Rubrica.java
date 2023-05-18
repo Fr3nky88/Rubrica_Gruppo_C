@@ -41,7 +41,7 @@ public abstract class Rubrica {
         init();
     }
 
-    public abstract void salvaContatto();
+    public abstract void salvaContatto(Contatto c);
 
     protected abstract void init() throws Exception;
 
@@ -92,11 +92,14 @@ public abstract class Rubrica {
         System.out.println("\n Digita ora il numero!");
         String numero= input.next();
 
-        Contatto contatto = new Contatto(nome, cognome, numero);
+        System.out.println("\n Digita ora l'email!");
+        String email= input.next();
+
+        Contatto contatto = new Contatto(nome, cognome, numero, email);
 
         rubricaContatti.add(contatto);
 
-        salvaContatto();
+        salvaContatto(contatto);
 
         System.out.println("Contatto aggiunto con successo!");
     }

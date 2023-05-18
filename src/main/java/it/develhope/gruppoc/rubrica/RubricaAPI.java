@@ -1,12 +1,14 @@
 package it.develhope.gruppoc.rubrica;
 
+import it.develhope.gruppoc.Classi.Contatto;
+
 public class RubricaAPI extends Rubrica {
     public RubricaAPI() throws Exception {
         super();
     }
 
     @Override
-    public void salvaContatto() {
+    public void salvaContatto(Contatto c) {
 
     }
 
