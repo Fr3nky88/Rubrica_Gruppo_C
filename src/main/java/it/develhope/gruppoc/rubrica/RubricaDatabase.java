@@ -10,9 +10,9 @@ import java.util.List;
 
 public class RubricaDatabase extends Rubrica {
     
-    private static final String CONNECTION_STRING_URL = "jdbc:mysql://ls-7893e6b96d354c95663a716150142492c7cb0e66.cvrqjflznw7l.eu-central-1.rds.amazonaws.com:3306/rubrica_gruppo_a";
-    private static final String USER = "dbmasteruser";
-    private static final String PASSWORD = "SJ#]}P8FA+V8*_yt-2W$sBZOg2CT1qZK";
+    private static final String CONNECTION_STRING_URL = "jdbc:mysql://localhost:3306/rubrica";
+    private static final String USER = "root";
+    private static final String PASSWORD = "password";
     public RubricaDatabase() throws Exception {
         super();
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -29,13 +29,15 @@ public class RubricaDatabase extends Rubrica {
 
             String sql = "INSERT INTO Contatto " +
                     "(nome, cognome, numero_telefono, email)" +
-                    "VALUES('" +
-                    c.getNome() + "', '" +
-                    c.getCognome() +"', '" +
-                    c.getTelefono() + "', '" +
-                    c.getEmail() + "');";
+                    "VALUES(?, ?, ?, ?);";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
-            int numRigheAggiornate = stmt.executeUpdate(sql);
+            preparedStatement.setString(1, c.getNome());
+            preparedStatement.setString(2, c.getCognome());
+            preparedStatement.setString(3, c.getTelefono());
+            preparedStatement.setString(4, c.getEmail());
+
+            int numRigheAggiornate = preparedStatement.executeUpdate();
 
 
             // Now do something with the ResultSet ....

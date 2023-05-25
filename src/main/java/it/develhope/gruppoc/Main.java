@@ -13,6 +13,7 @@ public class Main {
 //            Rubrica rubrica = new RubricaFile();
             Rubrica rubrica = new RubricaDatabase();
             rubrica.start();
+
         } catch (IOException e) {
             System.out.println("Non e possibile memorizzare la rubrica su PC");
             System.exit(0);
@@ -21,5 +22,6 @@ public class Main {
             e.printStackTrace();
             System.exit(0);
         }
+
     }
 }
