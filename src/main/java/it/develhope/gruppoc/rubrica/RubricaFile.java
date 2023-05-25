@@ -69,4 +69,9 @@ public class RubricaFile extends Rubrica {
             throw new ReadContactsExeption("FILE");
         }
     }
+
+    @Override
+    public void close() {
+
+    }
 }

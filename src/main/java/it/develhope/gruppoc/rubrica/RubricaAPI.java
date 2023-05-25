@@ -16,4 +16,9 @@ public class RubricaAPI extends Rubrica {
     protected void init() throws Exception {
 
     }
+
+    @Override
+    public void close() {
+
+    }
 }

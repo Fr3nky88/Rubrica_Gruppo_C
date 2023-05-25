@@ -1,25 +1,19 @@
 package it.develhope.gruppoc.rubrica;
 
 import it.develhope.gruppoc.Classi.Contatto;
-import it.develhope.gruppoc.Classi.ContattoConIndirizzo;
 import it.develhope.gruppoc.Classi.Indirizzo;
 import it.develhope.gruppoc.Classi.SortedList;
-
-import java.io.*;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public abstract class Rubrica {
     private Scanner input;
-    protected LinkedList<ContattoConIndirizzo> rubrica;
+//    protected LinkedList<ContattoConIndirizzo> rubrica;
     protected SortedList<Contatto> rubricaContatti;
     protected List<Indirizzo> rubricaIndirizzi;
 
     public Rubrica() throws Exception {
         input = new Scanner(System.in);
-        rubrica = new LinkedList<>();
+//        rubrica = new LinkedList<>();
         rubricaIndirizzi = new ArrayList<>();
 
         Comparator<Contatto> comparator = new Comparator<Contatto>() {
@@ -38,14 +32,14 @@ public abstract class Rubrica {
             }
         };
         rubricaContatti = new SortedList<>(comparator);
-        init();
     }
 
     public abstract void salvaContatto(Contatto c);
 
     protected abstract void init() throws Exception;
 
-    public void start() {
+    public void start() throws Exception {
+        init();
         boolean running = true;
         while (running) {
 
@@ -62,7 +56,10 @@ public abstract class Rubrica {
 //                case 7 -> visualizzaIndirizzi();
 //                case 8 -> cancellaIndirizzo();
 //                case 9 -> unisciContattoConIndirizzo;
-                case 0 -> running = spegnimento();
+                case 0 -> {
+                    close();
+                    running = spegnimento();
+                }
                 default -> {
                     System.out.println("Errore input non valido!\n Inserisci un input valido");
                     input.nextInt();
@@ -253,4 +250,6 @@ public abstract class Rubrica {
     private void leggiRubricaDaFile() {
 
     }
+
+    public abstract void close();
 }

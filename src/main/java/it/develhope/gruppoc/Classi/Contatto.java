@@ -8,8 +8,9 @@ public class Contatto {
     private String nome;
     private String cognome;
     private String telefono;
-
     private String email;
+
+    private Indirizzo indirizzo;
 
     public Contatto(String nome, String cognome, String telefono, String email) {
         this.nome = nome;
@@ -20,6 +21,14 @@ public class Contatto {
 
     public Contatto() {
 
+    }
+
+    public Indirizzo getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(Indirizzo indirizzo) {
+        this.indirizzo = indirizzo;
     }
 
     /**
